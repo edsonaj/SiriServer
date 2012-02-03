@@ -1,3 +1,11 @@
+Portuguese Support
+------------------
+
+For now it can only understand you, but Siri will respond in English.
+See "portugues.py" plugin example. Note that besides it understand portuguese, the Siri Server recognizes it as English, so in the plugin it should be en-US, NOT pt-BR.
+
+
+
 Siri Server
 ===========
 
