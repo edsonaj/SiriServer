@@ -23,8 +23,8 @@ from sslDispatcher import ssl_dispatcher
 import signal, os
 
 class HandleConnection(ssl_dispatcher):
-    __not_recognized = {"de-DE": u"Entschuldigung, ich verstehe \"{0}\" nicht.", "en-US": u"Sorry I don't understand {0}"}
-    __websearch = {"de-DE": u"Websuche", "en-US": u"Websearch"}
+    __not_recognized = {"de-DE": u"Entschuldigung, ich verstehe \"{0}\" nicht.", "en-US": u"Sorry I don't understand {0}", "pt-BR": u"Desculpe eu não entendi {0}"}
+    __websearch = {"de-DE": u"Websuche", "en-US": u"Websearch", "pt-BR": u"Buscar na Internet"}
     def __init__(self, conn):
         asyncore.dispatcher_with_send.__init__(self, conn)
         
@@ -157,9 +157,9 @@ class HandleConnection(ssl_dispatcher):
                         else:
                             self.send_object(recognized)
                             view = uiObjects.AddViews(requestId)
-                            errorText = HandleConnection.__not_recognized[self.assistant.language] if self.assistant.language in HandleConnection.__not_recognized else HandleConnection.__not_recognized["en-US"]
+                            errorText = HandleConnection.__not_recognized[self.assistant.language] if self.assistant.language in HandleConnection.__not_recognized else HandleConnection.__not_recognized["pt-BR"]
                             view.views += [uiObjects.AssistantUtteranceView(errorText.format(best_match), errorText.format(best_match))]
-                            websearchText = HandleConnection.__websearch[self.assistant.language] if self.assistant.language in HandleConnection.__websearch else HandleConnection.__websearch["en-US"]
+                            websearchText = HandleConnection.__websearch[self.assistant.language] if self.assistant.language in HandleConnection.__websearch else HandleConnection.__websearch["pt-BR"]
                             button = uiObjects.Button(text=websearchText)
                             cmd = systemObjects.SendCommands()
                             cmd.commands = [systemObjects.StartRequest(utterance=u"^webSearchQuery^=^{0}^^webSearchConfirmation^=^Yes^".format(best_match))]

@@ -27,8 +27,8 @@ class Assistant(object):
         self.assistantId = assistantId
         self.censorspeech = None
         self.timeZoneId = None
-        self.language = None
-        self.region = None
+        self.language = "pt-BR"
+        self.region = "Brazil"
 
 
 def adaptAssistant(assistant):

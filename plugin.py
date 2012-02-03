@@ -6,7 +6,7 @@ from siriObjects.baseObjects import ClientBoundCommand, RequestCompleted
 from siriObjects.uiObjects import AddViews, AssistantUtteranceView
 __criteria_key__ = "criterias"
 
-__error_responses__ = {"de-DE": "Es ist ein Fehler in der Verarbeitung ihrer Anfrage aufgetreten!", "en-US": "There was an error during the processing of your request!", "en-GB": "There was an error during the processing of your request!", "en-AU": "There was an error during the processing of your request!", "fr-FR": "Il y avait une erreur lors du traitement de votre demande!"}
+__error_responses__ = {"de-DE": "Es ist ein Fehler in der Verarbeitung ihrer Anfrage aufgetreten!", "en-US": "There was an error during the processing of your request!", "en-GB": "There was an error during the processing of your request!", "en-AU": "There was an error during the processing of your request!", "fr-FR": "Il y avait une erreur lors du traitement de votre demande!", "pt-BR": "Houve um erro durante o processamento do seu pedido. Tente denovo."}
 
 def register(lang, regex):
     def addInfosTo(func):
