@@ -1,6 +1,3 @@
-#Siri Server plugin - SiriServer KNX Plugin (Calimero API 1.4)
-#Portuguese plugin
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from plugin import *
@@ -9,7 +6,7 @@ class knxcontrol(Plugin):
     
 ##OFICE
     
-    @register("en-US", "(.*escritorio.*ligar.*)|(.*ligar.*escritorio.*)|(.*escritorio.*ligue.*)|(.*ligue.*escritorio.*)")
+    @register("en-US", "(.*escritório.*ligar.*)|(.*ligar.*escritório.*)|(.*escritorio.*ligue.*)|(.*ligue.*escritorio.*)")
     def st_officeon(self, speech, language):
         self.say ("Ligando as luzes do escritorio.","Turning on the office lights") 
     	system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Office__Turn_Light_ON.jar'")
