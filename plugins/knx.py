@@ -4,7 +4,7 @@
 
 from plugin import *
 
-class siriserver-knx(Plugin):
+class knx(Plugin):
     
 ##OFICE
     
