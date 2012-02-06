@@ -8,7 +8,7 @@ class knxcontrol(Plugin):
     
 ##OFICE
     
-    @register("pt-BR", "(.*ligar escritório.*)|(.*ligar estudos.*)")
+    @register("pt-BR", "(.*ligar escritório.*)|(.*Ligar estudos.*)")
     def st_officeon(self, speech, language):
         self.say("Ligando as luzes do escritorio.","Turning on the office lights") 
     	os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Office__Turn_Light_ON.jar'")
@@ -22,7 +22,7 @@ class knxcontrol(Plugin):
 
 ##ROOM
 
-    @register("pt-BR", "(.*sala.*ligar.*)|(.*ligar sala.*)|(.*sala.*ligue.*)|(.*ligue.*sala.*)")
+    @register("pt-BR", "(.*sala.*ligar.*)|(.*Ligar sala.*)|(.*sala.*ligue.*)|(.*ligue.*sala.*)")
     def st_roomon(self, speech, language):
         response = self.ask("Deseja ligar a iluminação principal/direta ou a secundária/indireta?","Wich one?")
         if response = "(.*Principal.*)|(.*Direta.*)" 
