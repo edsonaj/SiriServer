@@ -12,14 +12,14 @@ class AsyncOpenHttp(threading.Thread):
             self.currentFlac = flac
             self.requestId = requestId
             self.dictation = dictation
-            self.language = "pt-BR"
+            self.language = language
             self.allowCurses = allowCurses
             self.finished = False
             self.run()
     
     def run(self):
         # of course change urllib to httplib-something-something
-        url = "https://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&pfilter={0}&lang={1}&maxresults=6".format(0 if self.allowCurses else 2, "pt-BR")
+        url = "https://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&pfilter={0}&lang={1}&maxresults=6".format(0 if self.allowCurses else 2, self.language)
         req = urllib2.Request(url, data = self.currentFlac, headers = {'Content-Type': 'audio/x-flac; rate=16000', 'User-Agent': 'Siri-Server'})
         try:
             content  = urllib2.urlopen(req, timeout=3).read()

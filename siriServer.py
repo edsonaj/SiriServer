@@ -23,7 +23,7 @@ from sslDispatcher import ssl_dispatcher
 import signal, os
 
 class HandleConnection(ssl_dispatcher):
-    __not_recognized = {"de-DE": u"Entschuldigung, ich verstehe \"{0}\" nicht.", "en-US": u"Sorry I don't understand {0}", "pt-BR": u"Desculpe eu não entendi {0}"}
+    __not_recognized = {"de-DE": u"Entschuldigung, ich verstehe \"{0}\" nicht.", "en-US": u"Sorry I don't understand {0}", "pt-BR": u"Desculpe-me, eu não entendi {0}"}
     __websearch = {"de-DE": u"Websuche", "en-US": u"Websearch", "pt-BR": u"Buscar na Internet"}
     def __init__(self, conn):
         asyncore.dispatcher_with_send.__init__(self, conn)
@@ -51,6 +51,8 @@ class HandleConnection(ssl_dispatcher):
         self.assistant = None
         self.sendLock = threading.Lock()
         self.current_running_plugin = None
+        self.current_location = None
+        self.plugin_lastAceId = None
         self.logger = logging.getLogger("logger")
     
     def handle_ssl_established(self):                
@@ -135,6 +137,7 @@ class HandleConnection(ssl_dispatcher):
             possible_matches = googleJson['hypotheses']
             if len(possible_matches) > 0:
                 best_match = possible_matches[0]['utterance']
+                best_match = best_match[0].upper()+best_match[1:]
                 best_match_confidence = possible_matches[0]['confidence']
                 self.logger.info(u"Best matching result: \"{0}\" with a confidence of {1}%".format(best_match, round(float(best_match_confidence)*100,2)))
                 # construct a SpeechRecognized
@@ -148,7 +151,7 @@ class HandleConnection(ssl_dispatcher):
                     if self.current_running_plugin == None:
                         (clazz, method) = PluginManager.getPlugin(best_match, self.assistant.language)
                         if clazz != None and method != None:
-                            plugin = clazz(method, best_match, self.assistant.language)
+                            plugin = clazz(method, best_match, self.assistant.language, self.send_object, self.send_plist, self.assistant, self.current_location)
                             plugin.refId = requestId
                             plugin.connection = self
                             self.current_running_plugin = plugin
@@ -157,9 +160,9 @@ class HandleConnection(ssl_dispatcher):
                         else:
                             self.send_object(recognized)
                             view = uiObjects.AddViews(requestId)
-                            errorText = HandleConnection.__not_recognized[self.assistant.language] if self.assistant.language in HandleConnection.__not_recognized else HandleConnection.__not_recognized["pt-BR"]
+                            errorText = HandleConnection.__not_recognized[self.assistant.language] if self.assistant.language in HandleConnection.__not_recognized else HandleConnection.__not_recognized["en-US"]
                             view.views += [uiObjects.AssistantUtteranceView(errorText.format(best_match), errorText.format(best_match))]
-                            websearchText = HandleConnection.__websearch[self.assistant.language] if self.assistant.language in HandleConnection.__websearch else HandleConnection.__websearch["pt-BR"]
+                            websearchText = HandleConnection.__websearch[self.assistant.language] if self.assistant.language in HandleConnection.__websearch else HandleConnection.__websearch["en-US"]
                             button = uiObjects.Button(text=websearchText)
                             cmd = systemObjects.SendCommands()
                             cmd.commands = [systemObjects.StartRequest(utterance=u"^webSearchQuery^=^{0}^^webSearchConfirmation^=^Yes^".format(best_match))]
@@ -189,6 +192,16 @@ class HandleConnection(ssl_dispatcher):
                 self.logger.debug("packet with content:\n{0}".format(pprint.pformat(reqObject, width=40)))
                 
                 # first handle speech stuff
+                
+                if 'refId' in reqObject:
+                    # if the following holds, this packet is an answer to a request by a plugin
+                    if reqObject['refId'] == self.plugin_lastAceId and self.current_running_plugin != None:
+                        if self.current_running_plugin.waitForResponse != None:
+                            # just forward the object to the 
+                            # don't change it's refId, further requests must reference last FinishSpeech
+                            self.plugin_lastAceId = None
+                            self.current_running_plugin.response = reqObject
+                            self.current_running_plugin.waitForResponse.set()
                 
                 if reqObject['class'] == 'StartSpeechRequest' or reqObject['class'] == 'StartSpeechDictation':
                         decoder = speex.Decoder()
@@ -258,7 +271,7 @@ class HandleConnection(ssl_dispatcher):
                         objProperties = reqObject['properties'] 
                         self.assistant.censorSpeech = objProperties['censorSpeech']
                         self.assistant.timeZoneId = objProperties['timeZoneId']
-                        self.assistant.language = objProperties['language']
+                        self.assistant.language = "pt-BR"
                         self.assistant.region = objProperties['region']
                         c.execute("update assistants set assistant = ? where assistantId = ?", (self.assistant, self.assistant.assistantId))
                         self.dbConnection.commit()
@@ -286,14 +299,6 @@ class HandleConnection(ssl_dispatcher):
                 elif reqObject['class'] == 'StartRequest':
                     #this should also be handeled by special plugins, so lets call the plugin handling stuff
                     self.process_recognized_speech({'hypotheses': [{'utterance': reqObject['properties']['utterance'], 'confidence': 1.0}]}, reqObject['aceId'], False)
-                        
-                # handle responses to plugin
-                elif self.current_running_plugin != None and "refId" in reqObject:
-                    if self.current_running_plugin.waitForResponse != None:
-                        # just forward the object to the 
-                        self.current_running_plugin.response = reqObject
-                        self.current_running_plugin.refId = reqObject['refId']
-                        self.current_running_plugin.waitForResponse.set()
 
                     
     def hasNextObj(self):

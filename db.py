@@ -28,7 +28,7 @@ class Assistant(object):
         self.censorspeech = None
         self.timeZoneId = None
         self.language = "pt-BR"
-        self.region = "Brazil"
+        self.region = None
 
 
 def adaptAssistant(assistant):
