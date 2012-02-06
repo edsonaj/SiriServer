@@ -11,7 +11,7 @@ class knxcontrol(Plugin):
     
     @register("en-US", "(.*escritorio.*ligar.*)|(.*ligar.*escritorio.*)|(.*escritorio.*ligue.*)|(.*ligue.*escritorio.*)")
     def st_officeon(self, speech, language):
-        self.say ("Ligando as luzes do escritório.","Turning on the office lights") 
+        self.say ("Ligando as luzes do escritorio.","Turning on the office lights") 
     	system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Office__Turn_Light_ON.jar'")
     	self.complete_request()
   
