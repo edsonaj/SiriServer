@@ -14,7 +14,6 @@ class portugues(Plugin):
     @register("en-US", ".*seu nome.*")
     def st_name(self, speech, language):
         self.say("My name is Siri.")
-        self.spoken("My name is Edson")
         self.complete_request()
     
     @register("en-US", "Como voce esta?")
