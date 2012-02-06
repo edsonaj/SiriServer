@@ -32,17 +32,17 @@ class portugues(Plugin):
         self.say("Não, obrigada. Eu estou apaixonada pelo iPhone preto do seu amigo.","No, thank you. I'm in love with the black iPhone from your friend.")
         self.complete_request()
     
-    @register("pt-BR", "(.*conte.*piada*)|(.*contar.*piada*)")
+    @register("pt-BR", "(.*conte.*piada*)|(.*contar.*piada.*)")
     def st_tell_joke(self, speech, language):
         self.say("Dois iPhones entraram em um bar ... Esqueci o resto.","Two iPhones walk into a bar ... I forget the rest.")
         self.complete_request()
 
-    @register("pt-BR", "(.*conte.*historia*)|(.*contar.*historia*)")
+    @register("pt-BR", "(.*conte.*historia*)|(.*contar.*historia.*)")
     def st_tell_story(self, speech, language):
         self.say("Muito, mas muito distante, existia ... não, muito estupida esta história.","Far far away, there was ... no, too stupid")
         self.complete_request()
     
-    @register("pt-BR", ".*significado.*vida*")
+    @register("pt-BR", ".*significado.*vida.*")
     def st_tell_story(self, speech, language):
         self.say("Eu não sei, mas deve ter algum app para isso.","I don't know, but it should have an app for that")
         self.complete_request()
