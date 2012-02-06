@@ -6,7 +6,7 @@ class knxcontrol(Plugin):
     
 ##OFICE
     
-    @register("en-US", "(.*escritório.*ligar.*)|(.*ligar.*escritório.*)|(.*escritorio.*ligue.*)|(.*ligue.*escritorio.*)")
+    @register("en-US", "(.*escritório ligar.*)|(.*ligar escritório.*)|(.*escritorio.*ligue.*)|(.*ligue.*escritorio.*)")
     def st_officeon(self, speech, language):
         self.say ("Ligando as luzes do escritorio.","Turning on the office lights") 
     	system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Office__Turn_Light_ON.jar'")
