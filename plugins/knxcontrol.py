@@ -25,11 +25,11 @@ class knxcontrol(Plugin):
     @register("pt-BR", "(.*sala.*ligar.*)|(.*ligar.*sala.*)|(.*sala.*ligue.*)|(.*ligue.*sala.*)")
     def st_roomon(self, speech, language):
         response = self.ask ("Deseja ligar a iluminação principal/direta ou a secundária/indireta?","Wich one?")
-        if(response = "(.*Principal.*)|(.*Direta.*)") 
+        if response = "(.*Principal.*)|(.*Direta.*)" 
             self.say ("Ligando as luzes principais da sala.","Turning on living room principal lights") 
             os.system ("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_1.jar'")
         else
-            if(response = "{.*Secundária.*)|(.*Indireta.*)")
+            if response = "{.*Secundária.*)|(.*Indireta.*)"
             self.say ("Ligando as luzes secundárias da sala.","Turning on living room secundary lights")
             os.system ("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_2.jar'")
             os.system ("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_3.jar'")
@@ -37,7 +37,7 @@ class knxcontrol(Plugin):
         self.complete_request()
 
     @register("pt-BR", "(.*sala.*desligar.*)|(.*desligar.*sala.*)|(.*sala.*desligue.*)|(.*desligue.*sala.*)")
-    def st_roomon(self, speech, language):
+    def st_roomoff(self, speech, language):
         response = self.ask ("Deseja desligar a iluminação principal/direta ou a secundária/indireta?","Wich one?")
         if(response = "(.*Principal.*)|(.*Direta.*)") 
             self.say ("Desligando as luzes principais da sala.","Turning off living room principal lights") 
