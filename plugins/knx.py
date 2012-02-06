@@ -1,6 +1,5 @@
 #Siri Server plugin - SiriServer KNX Plugin (Calimero API 1.4)
-#Portuguese plugin for use with this fork: https://github.com/edsonaj/SiriServer
-
+#Portuguese plugin
 
 from plugin import *
 
@@ -8,28 +7,28 @@ class knx(Plugin):
     
 ##OFICE
     
-    @register("en-US", "(.*escritorio.*ligar.*)|(.*ligar.*escritorio.*)")
+    @register("en-US", "(.*escritorio.*ligar.*)|(.*ligar.*escritorio.*)|(.*escritorio.*ligue.*)|(.*ligue.*escritorio.*)")
         def st_hello(self, speech, language):
         self.say ("Ligando as luzes do escritório.","Turning on the office lights") 
     	system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Office__Turn_Light_ON.jar'")
     	self.complete_request()
   
-    @register("en-US", "(.*escritório.*desligar.*)|(.*desligar.*escritório.*)")
+    @register("en-US", "(.*escritorio.*desligar.*)|(.*desligar.*escritorio.*)|(.*escritorio.*desligue.*)|(.*desligue.*escritorio.*)")
         def st_hello(self, speech, language):
-    	self.say ("Desligando as luzes do escritório.","Turning off the office lights") 
+    	self.say ("Desligando as luzes do escritorio.","Turning off the office lights") 
     	system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Office__Turn_Light_OFF.jar'")
     	self.complete_request()
 
 ##KITCHEN
     
-    @register("en-US", "(.*cozinha.*ligar.*)|(.*ligar.*cozinha.*)")
+    @register("en-US", "(.*cozinha.*ligar.*)|(.*ligar.*cozinha.*)|(.*cozinha.*ligue.*)|(.*ligue.*cozinha.*)")
         def st_hello(self, speech, language):
         self.say ("Ligando as luzes da cozinha.","Turning on kitchen lights") 
         system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Kitchen__Turn_Light_ON_1.jar'")
         system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Kitchen__Turn_Light_ON_2.jar'")
         self.complete_request()
     
-    @register("en-US", "(.*cozinha.*desligar.*)|(.*desligar.*cozinha.*)")
+    @register("en-US", "(.*cozinha.*desligar.*)|(.*desligar.*cozinha.*)|(.*cozinha.*desligue.*)|(.*desligue.*cozinha.*)")
         def st_hello(self, speech, language):
         self.say ("Desligando as luzes da cozinha.","Turning off kitchen lights")
         system ("java -jar '/home/ubuntu/SiriProxy/KNX/_Kitchen__Turn_Light_OFF_1.jar'")
