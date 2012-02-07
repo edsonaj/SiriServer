@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from plugin import *
@@ -5,7 +6,7 @@ from plugin import *
 class portugues(Plugin):
     
 
-    @register("pt-BR", "(.*Olá.*)|(.*Olá Siri.*)|(.*Oi.*)|(.*Oi Siri.*)")
+    @register("pt-BR", "(.*Oi.*)|(.*Oi Siri.*)")
     def st_hello(self, speech, language):
         self.say("Olá","Hello")
         self.complete_request()
@@ -15,7 +16,7 @@ class portugues(Plugin):
         self.say("Meu nome é Siri.","My name is Siri.")
         self.complete_request()
     
-    @register("pt-BR", "(.*Como você está.*)")
+    @register("pt-BR", "(.*Como.*está.*)")
     def st_howareyou(self, speech, language):
         self.say("Muito bem, obrigada por perguntar!","Fine, thanks for asking!")
         self.complete_request()
