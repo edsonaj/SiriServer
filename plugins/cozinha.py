@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 from plugin import *
 
 class cozinhacontrol(Plugin):

@@ -10,7 +10,7 @@ from types import FunctionType
 logger = logging.getLogger("logger")
 pluginPath = "plugins"
 
-config_file = "plugins.conf"
+config_file = "PluginManager.conf"
 
 plugins = dict()
 
