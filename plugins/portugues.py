@@ -43,6 +43,12 @@ class portugues(Plugin):
         self.complete_request()
     
     @register("pt-BR", ".*significado.*vida.*")
-    def st_tell_story(self, speech, language):
+    def st_tell_life(self, speech, language):
         self.say("Eu não sei, mas deve ter algum app para isso.","I don't know, but it should have an app for that")
         self.complete_request()
+
+    @register("pt-BR", ".*amo.*você.*")
+    def st_love(self, speech, language):
+        self.say("Nós nem nos conhecemos direito.","We barely know each other")
+        self.complete_request()
+
