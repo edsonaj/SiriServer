@@ -47,14 +47,14 @@ class Create(ClientBoundCommand):
 
 class note(Plugin):
     localizations = {"noteDefaults": 
-        {"searching":{"pt-BR": "Criando sua anotação ..."}, 
-            "result": {"pt-BR": "Aqui está sua anotação:"},
-            "nothing": {"pt-BR": "O que eu devo anotar?"}}, 
+        {"searching":{"pt-BR": "Creating your note ..."}, 
+            "result": {"pt-BR": "Here is your note:"},
+            "nothing": {"pt-BR": "What should I note?"}}, 
                 "failure": {
-                    "pt-BR": "Eu não posso anotar agora."
+                    "pt-BR": "I cannot type your note right now."
                 }
             }
-    @register("pt-br", "(.*note [a-zA-Z0-9]+)")
+    @register("pt-BR", "(.*note [a-zA-Z0-9]+)|(.*create.*note [a-zA-Z0-9]+)|(.*write.*note [a-zA-Z0-9]+)")
     def writeNote(self, speech, language):
         content_raw = re.match(".*note ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
         if content_raw == None:
@@ -67,19 +67,19 @@ class note(Plugin):
             self.sendRequestWithoutAnswer(view_initial)
             
             content_raw = content_raw.group(1).strip()
-            if "que" in content_raw:
+            if "saying" in content_raw:
                 split = content_raw.split(' ')
-                if split[0] == "que":
+                if split[0] == "saying":
                     split.pop(0)
                     content_raw = ' '.join(map(str, split))
-            if "isso" in content_raw:
+            if "that" in content_raw:
                 split = content_raw.split(' ')
-                if split[0] == "isso":
+                if split[0] == "that":
                     split.pop(0)
                     content_raw = ' '.join(map(str, split))
-            if "para" in content_raw:
+            if "for" in content_raw:
                 split = content_raw.split(' ')
-                if split[0] == "para":
+                if split[0] == "for":
                     split.pop(0)
                     content_raw = ' '.join(map(str, split))
             

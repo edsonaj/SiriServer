@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-#Siri Server plugin - Portugues
 
 from plugin import *
 
@@ -23,8 +22,7 @@ class portugues(Plugin):
     
     @register("pt-BR", ".*Obrigado.*")
     def st_thank_you(self, speech, language):
-        self.say("De nada.","You are welcome.")
-        self.say("É apenas meu trabalho.","This is my job.")
+        self.say("De nada. É apenas meu trabalho.","You are welcome. This is my job")
         self.complete_request()     
     
     @register("pt-BR", "(.*quer.*casar.*)|(.*vamos.*casar.*)")
@@ -37,10 +35,6 @@ class portugues(Plugin):
         self.say("Dois iPhones entraram em um bar ... Esqueci o resto.","Two iPhones walk into a bar ... I forget the rest.")
         self.complete_request()
 
-    @register("pt-BR", "(.*conte.*história*)|(.*contar.*história.*)")
-    def st_tell_story(self, speech, language):
-        self.say("Muito, mas muito distante, existia ... não, muito estupida esta história.","Far far away, there was ... no, too stupid")
-        self.complete_request()
     
     @register("pt-BR", ".*significado.*vida.*")
     def st_tell_life(self, speech, language):
