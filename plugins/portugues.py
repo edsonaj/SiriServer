@@ -5,7 +5,6 @@ from plugin import *
 
 class portugues(Plugin):
     
-
     @register("pt-BR", "(.*Oi.*)|(.*Oi Siri.*)")
     def st_hello(self, speech, language):
         self.say("Olá","Hello")
@@ -35,7 +34,6 @@ class portugues(Plugin):
     def st_tell_joke(self, speech, language):
         self.say("Dois iPhones entraram em um bar ... Esqueci o resto.","Two iPhones walk into a bar ... I forget the rest.")
         self.complete_request()
-
     
     @register("pt-BR", ".*significado.*vida.*")
     def st_tell_life(self, speech, language):
@@ -45,5 +43,38 @@ class portugues(Plugin):
     @register("pt-BR", ".*amo você.*")
     def st_love(self, speech, language):
         self.say("Nós nem nos conhecemos direito.","We barely know each other")
+        self.complete_request()
+
+    @register("pt-BR", ".*knock.*knock.*")
+    def st_knock(self, speech, language):
+        answer = self.ask(u"Who's there?")
+        answer = self.ask(u"\"{0}\" who?".format(answer))
+        self.say("Quem está brincando comigo?","Who is bugging me with knock knock jokes?")
+        self.complete_request()
+
+    @register("pt-BR", ".*Questão.*Vida.*")
+    def st_anstwer_all(self, speech, language):
+        self.say("42")
+        self.complete_request()
+
+    @register("pt-BR", "(.*te amo.*)|(.*amo você.*)")
+    def st_love_you(self, speech, language):
+        self.say("Ah, claro, eu aposto que você fala isso para todos os seus produtos Apple.","Oh. Sure, I guess you say this to all your Apple products")
+        self.complete_request()
+
+    @register("pt-BR", ".*Android.*")
+    def st_android(self, speech, language):
+        self.say("Eu penso diferente sobre isso.","I think different about that.")
+        self.complete_request()
+
+    @register("pt-BR", ".*Feliz.*aniversário.*")
+    def st_birthday(self, speech, language):
+        self.say("Meu aniversário é hoje?","My birthday is today?")
+        self.say("Vamos fazer uma festa!","Lets make a party!")
+        self.complete_request()
+
+    @register("pt-BR", ".*estou.*cansado.*")
+    def st_so_tired(self, speech, language):
+        self.say("Eu espero que você não esteja dirigindo neste momento!","I hope you are not driving a car right now!")
         self.complete_request()
 
