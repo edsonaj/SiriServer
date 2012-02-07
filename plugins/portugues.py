@@ -7,12 +7,12 @@ class portugues(Plugin):
     
     @register("pt-BR", "(.*Oi.*)|(.*Oi Siri.*)")
     def st_hello(self, speech, language):
-        self.say("Olá","Hello")
+        self.say("Ola","Hello")
         self.complete_request()
 
     @register("pt-BR", "(.*seu nome.*)")
     def st_name(self, speech, language):
-        self.say("Meu nome é Siri.","My name is Siri.")
+        self.say("Meu nome e Siri.","My name is Siri.")
         self.complete_request()
     
     @register("pt-BR", "(.*Como.*está.*)")
@@ -22,7 +22,7 @@ class portugues(Plugin):
     
     @register("pt-BR", ".*Obrigado.*")
     def st_thank_you(self, speech, language):
-        self.say("De nada. É apenas meu trabalho.","You are welcome. This is my job")
+        self.say("De nada. E apenas meu trabalho.","You are welcome. This is my job")
         self.complete_request()     
     
     @register("pt-BR", "(.*quer.*casar.*)|(.*vamos.*casar.*)")
@@ -37,12 +37,12 @@ class portugues(Plugin):
     
     @register("pt-BR", ".*significado.*vida.*")
     def st_tell_life(self, speech, language):
-        self.say("Eu não sei, mas deve ter algum app para isso.","I don't know, but it should have an app for that")
+        self.say("Eu nao sei, mas deve ter algum app para isso.","I don't know, but it should have an app for that")
         self.complete_request()
 
     @register("pt-BR", ".*amo você.*")
     def st_love(self, speech, language):
-        self.say("Nós nem nos conhecemos direito.","We barely know each other")
+        self.say("Nos nem nos conhecemos direito.","We barely know each other")
         self.complete_request()
 
     @register("pt-BR", ".*knock.*knock.*")
@@ -67,14 +67,14 @@ class portugues(Plugin):
         self.say("Eu penso diferente sobre isso.","I think different about that.")
         self.complete_request()
 
-    @register("pt-BR", ".*Feliz.*aniversário.*")
+    @register("pt-BR", ".*Feliz aniversário.*")
     def st_birthday(self, speech, language):
-        self.say("Meu aniversário é hoje?","My birthday is today?")
+        self.say("Meu aniversário e hoje?","My birthday is today?")
         self.say("Vamos fazer uma festa!","Lets make a party!")
         self.complete_request()
 
     @register("pt-BR", ".*estou.*cansado.*")
     def st_so_tired(self, speech, language):
-        self.say("Eu espero que você não esteja dirigindo neste momento!","I hope you are not driving a car right now!")
+        self.say("Eu espero que voce nao esteja dirigindo neste momento!","I hope you are not driving a car right now!")
         self.complete_request()
 

@@ -15,5 +15,5 @@ class jantarcontrol(Plugin):
     @register("pt-BR", "(.*desligar.*jantar.*)")
     def st_kitchenoff(self, speech, language):
         self.say("Desligando as luzes da sala de jantar.","Turning off dinner room lights")
-        os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_DinnerRoom__Turn_Light_ON.jar'")
+        os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_DinnerRoom__Turn_Light_OFF.jar'")
         self.complete_request()
