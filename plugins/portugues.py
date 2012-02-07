@@ -6,7 +6,7 @@ from plugin import *
 class portugues(Plugin):
     
 
-    @register("pt-BR", "(.*Olá.*)|(.*Olá.*Siri.*)|(.*Oi.*)|(.*Oi.*Siri.*)")
+    @register("pt-BR", "(.*Olá.*)|(.*Olá Siri.*)|(.*Oi.*)|(.*Oi Siri.*)")
     def st_hello(self, speech, language):
         self.say("Olá","Hello")
         self.complete_request()
@@ -16,7 +16,7 @@ class portugues(Plugin):
         self.say("Meu nome é Siri.","My name is Siri.")
         self.complete_request()
     
-    @register("pt-BR", "(.*Como.*você.*está.*)")
+    @register("pt-BR", "(.*Como você está.*)")
     def st_howareyou(self, speech, language):
         self.say("Muito bem, obrigada por perguntar!","Fine, thanks for asking!")
         self.complete_request()
@@ -37,7 +37,7 @@ class portugues(Plugin):
         self.say("Dois iPhones entraram em um bar ... Esqueci o resto.","Two iPhones walk into a bar ... I forget the rest.")
         self.complete_request()
 
-    @register("pt-BR", "(.*conte.*historia*)|(.*contar.*historia.*)")
+    @register("pt-BR", "(.*conte.*história*)|(.*contar.*história.*)")
     def st_tell_story(self, speech, language):
         self.say("Muito, mas muito distante, existia ... não, muito estupida esta história.","Far far away, there was ... no, too stupid")
         self.complete_request()
@@ -47,7 +47,7 @@ class portugues(Plugin):
         self.say("Eu não sei, mas deve ter algum app para isso.","I don't know, but it should have an app for that")
         self.complete_request()
 
-    @register("pt-BR", ".*amo.*você.*")
+    @register("pt-BR", ".*amo você.*")
     def st_love(self, speech, language):
         self.say("Nós nem nos conhecemos direito.","We barely know each other")
         self.complete_request()

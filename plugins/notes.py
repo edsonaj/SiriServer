@@ -54,9 +54,9 @@ class note(Plugin):
                     "pt-BR": "Eu não posso anotar agora."
                 }
             }
-    @register("pt-br", "(.*anote [a-zA-Z0-9]+)|(.*crie.*nota [a-zA-Z0-9]+)|(.*escreva.*nota [a-zA-Z0-9]+)|(.*escreva.*anotação [a-zA-Z0-9]+)|(.*crie.*anotação [a-zA-Z0-9]+)|(.*faça.*anotação [a-zA-Z0-9]+)|(.*faça.*nota [a-zA-Z0-9]+)")
+    @register("pt-br", "(.*note [a-zA-Z0-9]+)")
     def writeNote(self, speech, language):
-        content_raw = re.match(".*anote ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
+        content_raw = re.match(".*note ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
         if content_raw == None:
             view_initial = AddViews(self.refId, dialogPhase="Reflection")
             view_initial.views = [AssistantUtteranceView(text=note.localizations['noteDefaults']['nothing'][language], speakableText=note.localizations['noteDefaults']['nothing'][language], dialogIdentifier="Note#failed")]
