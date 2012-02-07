@@ -42,7 +42,7 @@ class Plugin(threading.Thread):
     def __init__(self, method, speech, language, send_object, send_plist, assistant, location):
         super(Plugin, self).__init__()
         self.__method = method
-        self.__lang = language
+        self.__lang = "pt-BR"
         self.__speech = speech
         self.waitForResponse = None
         self.response = None
