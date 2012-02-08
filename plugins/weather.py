@@ -14,7 +14,7 @@ from siriObjects.uiObjects import AddViews, AssistantUtteranceView
 from siriObjects.forecastObjects import *
 
 #Obtain API Key from wundergrounds.com
-weatherApiKey ="e63c15987206e33d"
+weatherApiKey ="37e4db47f3466bfb"
 
 class SiriWeatherFunctions():
     def __init__(self):
@@ -44,57 +44,47 @@ class SiriWeatherFunctions():
 class weatherPlugin(Plugin):
     localizations = {"weatherForecast": 
                         {"search":{
-                            0:{"de-DE": u"Einen Moment Geduld bitte...", "en-US": "Checando minhas fontes..."},
-                            1:{"de-DE": u"Ich suche nach der Vorhersage ...", "en-US": "Por favor espere enquanto checo..."},
-                            2:{"de-DE": u"Einen Moment bitte ...", "en-US": "Um momento por favor..."},
-                            3:{"de-DE": u"Ich suche nach Wetterdaten...", "en-US": "Tentando obter a previsao..."},
+                            0:{"de-DE": u"Einen Moment Geduld bitte...", "pt-BR": "Checando minhas fontes..."},
+                            1:{"de-DE": u"Ich suche nach der Vorhersage ...", "pt-BR": "Por favor espere enquanto checo..."},
+                            2:{"de-DE": u"Einen Moment bitte ...", "pt-BR": "Um momento por favor..."},
+                            3:{"de-DE": u"Ich suche nach Wetterdaten...", "pt-BR": "Tentando obter a previsao..."},
                             }, 
                         "forecast":{
                             "DAILY": {
-                                0:{"de-DE": u"Hier ist die Vorhersage fÃ¼r {0}, {1}", "en-US": "O tempo hoje em {0}, {1} Ã©"},
-                                1:{"de-DE": u"Hier ist die Wetterprognose fÃ¼r {0}, {1}", "en-US": "Este e a previsao para {0}, {1}"},
-                                2:{"de-DE": u"Ich habe folgende Vorhersage fÃ¼r {0}, {1} gefunden", "en-US": "Eu achei a seguinte informacao sobre o tempo para {0}, {1}"},
+                                0:{"de-DE": u"Hier ist die Vorhersage fÃ¼r {0}, {1}", "pt-BR": "O tempo hoje em {0}, {1} Ã©"},
+                                1:{"de-DE": u"Hier ist die Wetterprognose fÃ¼r {0}, {1}", "pt-BR": "Este e a previsao para {0}, {1}"},
+                                2:{"de-DE": u"Ich habe folgende Vorhersage fÃ¼r {0}, {1} gefunden", "pt-BR": "Eu achei a seguinte informacao sobre o tempo para {0}, {1}"},
                                 },
                             "HOURLY": {
-                                0:{"de-DE": u"Hier ist die heutige Vorhersage fÃ¼r {0}, {1}", "en-US": "O tempo hoje em {0}, {1} e"},
-                                1:{"de-DE": u"Hier ist die Wetterprognose von heute fÃ¼r {0}, {1}", "en-US": "Este e a previsao para {0}, {1}"},
-                                2:{"de-DE": u"Ich habe folgende Tagesprognose fÃ¼r {0}, {1} gefunden", "en-US": "Eu achei a seguinte informacao sobre o tempo para {0}, {1}"},
+                                0:{"de-DE": u"Hier ist die heutige Vorhersage fÃ¼r {0}, {1}", "pt-BR": "O tempo hoje em {0}, {1} e"},
+                                1:{"de-DE": u"Hier ist die Wetterprognose von heute fÃ¼r {0}, {1}", "pt-BR": "Este e a previsao para {0}, {1}"},
+                                2:{"de-DE": u"Ich habe folgende Tagesprognose fÃ¼r {0}, {1} gefunden", "pt-BR": "Eu achei a seguinte informacao sobre o tempo para {0}, {1}"},
                                 }
                             },
                         "failure": {
-                                   "de-DE": "Ich konnte leider keine Wettervorhersage finden!", "en-US": "Me desculpe, mais nao acho a previsao para esta localidade!"
+                                   "de-DE": "Ich konnte leider keine Wettervorhersage finden!", "pt-BR": "Me desculpe, mais nao acho a previsao para esta localidade!"
                                    }
                             }
                         }
         
     @register("de-DE", "(.*Wetter.*)|(.*Vorhersage.*)")     
-    @register("en-US", "(.*Weather.*)|(.*Tempo.*)")
+    @register("pt-BR", "(.*Previsão.*Tempo.*)|(.*Tempo.*)")
     def weatherForecastLookUp(self, speech, language):
         if weatherApiKey =="":
             self.say("Por favor obtenha a chave API em http://api.wunderground.com/weather/api/ e coloque-a na linha 17!")
             self.complete_Request()
             pass
         viewType ="DAILY"
-        if (speech.count("today") > 0 or speech.count("current") > 0 or speech.count(" for today") > 0) and language=="en-US":
+        if (speech.count("hoje") > 0 or speech.count("agora") > 0 or speech.count("para hoje") > 0) and language=="pt-BR":
             viewType = "HOURLY"
-            speech = speech.replace("todays","")
-            speech = speech.replace("today","")
-            speech = speech.replace("currently","")
-            speech = speech.replace("current","")
-            speech = speech.replace(" for today"," in ")
-            speech = speech.replace(" for "," in ")
-        if (speech.count("heute") > 0 or speech.count("moment") > 0 or speech.count(u"nÃ¤chsten Stunden") > 0 or speech.count(u"fÃ¼r heute") > 0) and language=="de-DE":
-            viewType = "HOURLY"
-            speech = speech.replace("heute","")
-            speech = speech.replace("im moment","")
-            speech = speech.replace("momentan","")
-            speech = speech.replace("aktuelle","")
-            speech = speech.replace("aktuell","")
-            speech = speech.replace(u"in den nÃ¤chsten Stunden","")
-            speech = speech.replace(u"fÃ¼r heute","")
+            speech = speech.replace("hoje","")
+            speech = speech.replace("agora","")
+            speech = speech.replace("neste momento","")
+            speech = speech.replace("para hoje"," in ")
+            speech = speech.replace(" para "," in ")
         
-        if language=="en-US":
-            speech = speech.replace(" for "," in ")
+        if language=="pt-BR":
+            speech = speech.replace(" para "," in ")
             
         if language=="de-DE":
             speech = speech.replace(u"in den nÃ¤chsten Tagen","")
@@ -108,7 +98,7 @@ class weatherPlugin(Plugin):
         view = AddViews(refId=self.refId, dialogPhase="Reflection")
         print weatherPlugin.localizations
         randomNumber = random.randint(0,3)
-        view.views = [AssistantUtteranceView(weatherPlugin.localizations['weatherForecast']['search'][randomNumber][language], weatherPlugin.localizations['weatherForecast']['search'][randomNumber][language])]
+        view.views = [AssistantUtteranceView(weatherPlugin.localizations['weatherForecast']['search'][randomNumber]["pt-BR"], weatherPlugin.localizations['weatherForecast']['search'][randomNumber]["pt-BR"])]
         self.connection.send_object(view)
         
         
@@ -122,10 +112,10 @@ class weatherPlugin(Plugin):
             print "found forecast"
             # lets see what we got, a country or a city... 
             # lets use google geocoding API for that
-            url = "http://maps.googleapis.com/maps/api/geocode/json?address={0}&sensor=false&language={1}".format(urllib.quote_plus(countryOrCity.encode("utf-8")), language)
+            url = "http://maps.googleapis.com/maps/api/geocode/json?address={0}&sensor=false&language={1}".format(urllib.quote_plus(countryOrCity.encode("utf-8")), "en-US")
         elif countryOrCity == None:
             currentLocation=self.getCurrentLocation()
-            url = "http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&sensor=false&language={2}".format(str(currentLocation.latitude),str(currentLocation.longitude), language)
+            url = "http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&sensor=false&language={2}".format(str(currentLocation.latitude),str(currentLocation.longitude), "en-US")
            
             # lets wait max 3 seconds
         jsonString = None
@@ -142,7 +132,7 @@ class weatherPlugin(Plugin):
                 if "country" in types:
                     # OK we have a country as input, that sucks, we need the capital, lets try again and ask for capital also
                     components = filter(lambda x: True if "country" in x['types'] else False, components)
-                    url = "http://maps.googleapis.com/maps/api/geocode/json?address=capital%20{0}&sensor=false&language={1}".format(urllib.quote_plus(components[0]['long_name']), language)
+                    url = "http://maps.googleapis.com/maps/api/geocode/json?address=capital%20{0}&sensor=false&language={1}".format(urllib.quote_plus(components[0]['long_name']), "en-US")
                         # lets wait max 3 seconds
                     jsonString = None
                     try:
@@ -242,7 +232,7 @@ class weatherPlugin(Plugin):
                                 speakCountry = stateLong + " (" + country + ")" if country == "USA" else country
                                 
                             randomNumber = random.randint(0,2)
-                            view.views = [AssistantUtteranceView(text=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber][language].format(city, speakCountry),speakableText=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber][language].format(city,speakCountry), dialogIdentifier="Weather#forecastCommentary"), weather]
+                            view.views = [AssistantUtteranceView(text=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber]["pt-BR"].format(city, speakCountry),speakableText=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber]["pt-BR"].format(city,speakCountry), dialogIdentifier="Weather#forecastCommentary"), weather]
                             self.sendRequestWithoutAnswer(view)
                         else:
                             error = True
@@ -258,5 +248,5 @@ class weatherPlugin(Plugin):
                          
                                     
         if error:                           
-            self.say(weatherPlugin.localizations['weatherForecast']['failure'][language])
+            self.say(weatherPlugin.localizations['weatherForecast']['failure']["pt-BR"])
         self.complete_request()
