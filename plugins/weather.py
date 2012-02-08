@@ -14,7 +14,7 @@ from siriObjects.uiObjects import AddViews, AssistantUtteranceView
 from siriObjects.forecastObjects import *
 
 #Obtain API Key from wundergrounds.com
-weatherApiKey =""
+weatherApiKey ="e63c15987206e33d"
 
 class SiriWeatherFunctions():
     def __init__(self):
@@ -44,34 +44,34 @@ class SiriWeatherFunctions():
 class weatherPlugin(Plugin):
     localizations = {"weatherForecast": 
                         {"search":{
-                            0:{"de-DE": u"Einen Moment Geduld bitte...", "en-US": "Checking my sources..."},
-                            1:{"de-DE": u"Ich suche nach der Vorhersage ...", "en-US": "Please wait while I check that..."},
-                            2:{"de-DE": u"Einen Moment bitte ...", "en-US": "One moment please..."},
-                            3:{"de-DE": u"Ich suche nach Wetterdaten...", "en-US": "Trying to get weather data for this location..."},
+                            0:{"de-DE": u"Einen Moment Geduld bitte...", "en-US": "Checando minhas fontes..."},
+                            1:{"de-DE": u"Ich suche nach der Vorhersage ...", "en-US": "Por favor espere enquanto checo..."},
+                            2:{"de-DE": u"Einen Moment bitte ...", "en-US": "Um momento por favor..."},
+                            3:{"de-DE": u"Ich suche nach Wetterdaten...", "en-US": "Tentando obter a previsao..."},
                             }, 
                         "forecast":{
                             "DAILY": {
-                                0:{"de-DE": u"Hier ist die Vorhersage für {0}, {1}", "en-US": "Here is the forecast for {0}, {1}"},
-                                1:{"de-DE": u"Hier ist die Wetterprognose für {0}, {1}", "en-US": "This is the forecast for {0}, {1}"},
-                                2:{"de-DE": u"Ich habe folgende Vorhersage für {0}, {1} gefunden", "en-US": "I found the following forecast for {0}, {1}"},
+                                0:{"de-DE": u"Hier ist die Vorhersage fÃ¼r {0}, {1}", "en-US": "O tempo hoje em {0}, {1} Ã©"},
+                                1:{"de-DE": u"Hier ist die Wetterprognose fÃ¼r {0}, {1}", "en-US": "Este e a previsao para {0}, {1}"},
+                                2:{"de-DE": u"Ich habe folgende Vorhersage fÃ¼r {0}, {1} gefunden", "en-US": "Eu achei a seguinte informacao sobre o tempo para {0}, {1}"},
                                 },
                             "HOURLY": {
-                                0:{"de-DE": u"Hier ist die heutige Vorhersage für {0}, {1}", "en-US": "Here is today's forecast for {0}, {1}"},
-                                1:{"de-DE": u"Hier ist die Wetterprognose von heute für {0}, {1}", "en-US": "This is today's forecast for {0}, {1}"},
-                                2:{"de-DE": u"Ich habe folgende Tagesprognose für {0}, {1} gefunden", "en-US": "I found the following hourly forecast for {0}, {1}"},
+                                0:{"de-DE": u"Hier ist die heutige Vorhersage fÃ¼r {0}, {1}", "en-US": "O tempo hoje em {0}, {1} e"},
+                                1:{"de-DE": u"Hier ist die Wetterprognose von heute fÃ¼r {0}, {1}", "en-US": "Este e a previsao para {0}, {1}"},
+                                2:{"de-DE": u"Ich habe folgende Tagesprognose fÃ¼r {0}, {1} gefunden", "en-US": "Eu achei a seguinte informacao sobre o tempo para {0}, {1}"},
                                 }
                             },
                         "failure": {
-                                   "de-DE": "Ich konnte leider keine Wettervorhersage finden!", "en-US": "I'm sorry but I could not find the forecast for this location!"
+                                   "de-DE": "Ich konnte leider keine Wettervorhersage finden!", "en-US": "Me desculpe, mais nao acho a previsao para esta localidade!"
                                    }
                             }
                         }
         
     @register("de-DE", "(.*Wetter.*)|(.*Vorhersage.*)")     
-    @register("en-US", "(.*Weather.*)|(.*forecast.*)")
+    @register("en-US", "(.*Weather.*)|(.*Tempo.*)")
     def weatherForecastLookUp(self, speech, language):
         if weatherApiKey =="":
-            self.say("Please obtain an API key from http://api.wunderground.com/weather/api/ and enter it in line 17!")
+            self.say("Por favor obtenha a chave API em http://api.wunderground.com/weather/api/ e coloque-a na linha 17!")
             self.complete_Request()
             pass
         viewType ="DAILY"
@@ -83,25 +83,25 @@ class weatherPlugin(Plugin):
             speech = speech.replace("current","")
             speech = speech.replace(" for today"," in ")
             speech = speech.replace(" for "," in ")
-        if (speech.count("heute") > 0 or speech.count("moment") > 0 or speech.count(u"nächsten Stunden") > 0 or speech.count(u"für heute") > 0) and language=="de-DE":
+        if (speech.count("heute") > 0 or speech.count("moment") > 0 or speech.count(u"nÃ¤chsten Stunden") > 0 or speech.count(u"fÃ¼r heute") > 0) and language=="de-DE":
             viewType = "HOURLY"
             speech = speech.replace("heute","")
             speech = speech.replace("im moment","")
             speech = speech.replace("momentan","")
             speech = speech.replace("aktuelle","")
             speech = speech.replace("aktuell","")
-            speech = speech.replace(u"in den nächsten Stunden","")
-            speech = speech.replace(u"für heute","")
+            speech = speech.replace(u"in den nÃ¤chsten Stunden","")
+            speech = speech.replace(u"fÃ¼r heute","")
         
         if language=="en-US":
             speech = speech.replace(" for "," in ")
             
         if language=="de-DE":
-            speech = speech.replace(u"in den nächsten Tagen","")
-            speech = speech.replace(u"in den nächsten paar Tagen","")
-            speech = speech.replace(u"in der nächsten Woche","")
-            speech = speech.replace(u"nächste Woche","")
-            speech = speech.replace(u" für "," in ")
+            speech = speech.replace(u"in den nÃ¤chsten Tagen","")
+            speech = speech.replace(u"in den nÃ¤chsten paar Tagen","")
+            speech = speech.replace(u"in der nÃ¤chsten Woche","")
+            speech = speech.replace(u"nÃ¤chste Woche","")
+            speech = speech.replace(u" fÃ¼r "," in ")
 
                 
         error = False
@@ -116,7 +116,7 @@ class weatherPlugin(Plugin):
         
                 
         
-        countryOrCity = re.match("(?u).* in ([\w ]+)", speech, re.IGNORECASE)
+        countryOrCity = re.match("(?u).*em ([\w ]+)", speech, re.IGNORECASE)
         if countryOrCity != None:
             countryOrCity = countryOrCity.group(1).strip()
             print "found forecast"

@@ -48,14 +48,14 @@ geonames_user="test2"
 class time(Plugin):
     
     localizations = {"currentTime": 
-                        {"search":{"de-DE": "Es wird gesucht ...", "en-US": "Looking up ..."}, 
-                         "currentTime": {"de-DE": "Es ist @{fn#currentTime}", "en-US": "It is @{fn#currentTime}"}}, 
+                        {"search":{"de-DE": "Es wird gesucht ...", "en-US": "Procurando ..."}, 
+                         "currentTime": {"de-DE": "Es ist @{fn#currentTime}", "en-US": "Sao @{fn#currentTime}"}}, 
                      "currentTimeIn": 
-                        {"search":{"de-DE": "Es wird gesucht ...", "en-US": "Looking up ..."}, 
+                        {"search":{"de-DE": "Es wird gesucht ...", "en-US": "Procurando ..."}, 
                          "currentTimeIn": 
                                 {
-                                "tts": {"de-DE": u"Die Uhrzeit in {0},{1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "The time in {0},{1} is @{{fn#currentTimeIn#{2}}}:"},
-                                "text": {"de-DE": u"Die Uhrzeit in {0}, {1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "The time in {0}, {1} is @{{fn#currentTimeIn#{2}}}:"}
+                                "tts": {"de-DE": u"Die Uhrzeit in {0},{1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "The time in {0}, {1} is @{{fn#currentTimeIn#{2}}}:"},
+                                "text": {"de-DE": u"Die Uhrzeit in {0}, {1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "As horas em {0}, {1} sao @{{fn#currentTimeIn#{2}}}:"}
                                 }
                         },
                     "failure": {
@@ -64,7 +64,7 @@ class time(Plugin):
                     }
 
     @register("de-DE", "(Wie ?viel Uhr.*)|(.*Uhrzeit.*)")     
-    @register("en-US", "(What.*time.*)|(.*current time.*)")
+    @register("en-US", "(Que horas sao*)|(.*Horas.*)|(.*Hora.*)")
     def currentTime(self, speech, language):
         #first tell that we look it up
         view = AddViews(self.refId, dialogPhase="Reflection")
@@ -82,7 +82,7 @@ class time(Plugin):
         self.complete_request()
     
     @register("de-DE", "(Wieviel Uhr.*in ([\w ]+))|(Uhrzeit.*in ([\w ]+))")
-    @register("en-US", "(What.*time.*in ([\w ]+))|(.*current time.*in ([\w ]+))")
+    @register("en-US", "(Que horas sao.*em ([\w ]+))|(.*Horas.*em ([\w ]+))")
     def currentTimeIn(self, speech, language):
         view = AddViews(self.refId, dialogPhase="Reflection")
         view.views = [AssistantUtteranceView(text=time.localizations['currentTimeIn']['search'][language], speakableText=time.localizations['currentTimeIn']['search'][language], dialogIdentifier="Clock#getTime")]
@@ -179,9 +179,9 @@ class time(Plugin):
 #                 "properties"=>
 #                 {"dialogIdentifier"=>"Common#unresolvedExplicitLocation",
 #                 "speakableText"=>
-#                 "Ich weiß leider nicht, wo das ist. Wenn du möchtest, kann ich im Internet danach suchen.",
+#                 "Ich weiÃŸ leider nicht, wo das ist. Wenn du mÃ¶chtest, kann ich im Internet danach suchen.",
 #                 "text"=>
-#                 "Ich weiß leider nicht, wo das ist. Wenn du möchtest, kann ich im Internet danach suchen."},
+#                 "Ich weiÃŸ leider nicht, wo das ist. Wenn du mÃ¶chtest, kann ich im Internet danach suchen."},
 #                 "group"=>"com.apple.ace.assistant"},
 #                 {"class"=>"Button",
 #                 "properties"=>
