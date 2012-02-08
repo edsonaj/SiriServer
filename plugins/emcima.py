@@ -21,13 +21,13 @@ class upstairscontrol(Plugin):
         self.complete_request()
 
 	@register("pt-BR", "(.*ligar.*escada.*)|(.*liga.*escada.*)|(.*ligue.*escada.*)|(.*ligar.*pé direito.*)|(.*liga.*pé direito.*)|(.*ligue.*pé direito.*)")
-    def st_hall_on(self, speech, language):
+    def st_stairs_on(self, speech, language):
         self.say("Ligando as luzes do pé direito duplo.","Turning on stairs lights") 
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Stairs__Turn_Light_OFF.jar'")
         self.complete_request()
 
     @register("pt-BR", "(.*desligar.*escada.*)|(.*desliga.*escada.*)|(.*desligue.*escada.*)|(.*desligar.*pé direito.*)|(.*desliga.*pé direito.*)|(.*desligue.*pé direito.*)")
-    def st_hall_off(self, speech, language):
+    def st_stairs_off(self, speech, language):
         self.say("Desligando as luzes do pé direito duplo.","Turning off stairs lights")
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Stairs__Turn_Light_ON.jar'")
         self.complete_request()

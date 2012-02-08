@@ -59,11 +59,11 @@ class note(Plugin):
         content_raw = re.match(".*note ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
         if content_raw == None:
             view_initial = AddViews(self.refId, dialogPhase="Reflection")
-            view_initial.views = [AssistantUtteranceView(text=note.localizations['noteDefaults']['nothing'][language], speakableText=note.localizations['noteDefaults']['nothing'][language], dialogIdentifier="Note#failed")]
+            view_initial.views = [AssistantUtteranceView(text=note.localizations['noteDefaults']['nothing']["en-US"], speakableText=note.localizations['noteDefaults']['nothing']["en-US"], dialogIdentifier="Note#failed")]
             self.sendRequestWithoutAnswer(view_initial)
         else:
             view_initial = AddViews(self.refId, dialogPhase="Reflection")
-            view_initial.views = [AssistantUtteranceView(text=note.localizations['noteDefaults']['searching'][language], speakableText=note.localizations['noteDefaults']['searching'][language], dialogIdentifier="Note#creating")]
+            view_initial.views = [AssistantUtteranceView(text=note.localizations['noteDefaults']['searching']["en-US"], speakableText=note.localizations['noteDefaults']['searching']["en-US"], dialogIdentifier="Note#creating")]
             self.sendRequestWithoutAnswer(view_initial)
             
             content_raw = content_raw.group(1).strip()
@@ -88,7 +88,7 @@ class note(Plugin):
             note_return = self.getResponseForRequest(note_create)
         
             view = AddViews(self.refId, dialogPhase="Summary")
-            view1 = AssistantUtteranceView(text=note.localizations['noteDefaults']['result'][language], speakableText=note.localizations['noteDefaults']['result'][language], dialogIdentifier="Note#created")
+            view1 = AssistantUtteranceView(text=note.localizations['noteDefaults']['result']["en-US"], speakableText=note.localizations['noteDefaults']['result']["en-US"], dialogIdentifier="Note#created")
         
             note_ = NoteObject()
             note_.contents = content_raw
