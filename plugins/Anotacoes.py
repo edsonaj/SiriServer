@@ -47,14 +47,14 @@ class Create(ClientBoundCommand):
 
 class note(Plugin):
     localizations = {"noteDefaults": 
-                        {"searching":{"en-US": "Creating your note ..."}, 
-                         "result": {"en-US": "Here is your note:"},
-                         "nothing": {"en-US": "What should I note?"}}, 
+                        {"searching":{"pt-BR": "Criando sua nota ..."}, 
+                         "result": {"pt-BR": "Aqui está sua nota:"},
+                         "nothing": {"pt-BR": "O que eu devo anotar?"}}, 
                     "failure": {
-                                "en-US": "I cannot type your note right now."
+                                "pt-BR": "Eu nao posso anotar agora."
                                 }
                     }
-    @register("pt-BR", "(.*note [a-zA-Z0-9]+)|(.*create.*note [a-zA-Z0-9]+)|(.*write.*note [a-zA-Z0-9]+)")
+    @register("pt-BR", "(.*anote [a-zA-Z0-9]+)|(.*anotar [a-zA-Z0-9]+)")
     def writeNote(self, speech, language):
         content_raw = re.match(".*note ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
         if content_raw == None:
