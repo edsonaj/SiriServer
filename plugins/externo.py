@@ -17,8 +17,8 @@ class externocontrol(Plugin):
         self.say("Desligando a bomba da piscina.","Turning off the pool")
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Pool__OFF.jar'")
         self.complete_request()
-
-	@register("pt-BR", "(.*ligar.*parede.*)|(.*ligar.*fundos.*)")
+        
+    @register("pt-BR", "(.*ligar.*parede.*)|(.*ligar.*fundos.*)")
     def st_wallon(self, speech, language):
         self.say("Ligando as luzes da parede do fundo.","Turning on the back wall lights") 
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Pool__Turn_Light_ON.jar'")
@@ -54,9 +54,10 @@ class externocontrol(Plugin):
     def st_barled_off(self, speech, language):
         self.say("Desligando os LEDs do bar.","Turning off bar led lights")
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Bar__Turn_Light_OFF_3.jar'")
-		self.complete_request()
-		
-	@register("pt-BR", "(.*ligar.*varanda.*)")
+        self.complete_request()
+        
+        
+    @register("pt-BR", "(.*ligar.*varanda.*)")
     def st_outside_on(self, speech, language):
         self.say("Ligando as luzes da varanda.","Turning on outside lights") 
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Outside__Turn_Lights_ON.jar'")
@@ -66,4 +67,4 @@ class externocontrol(Plugin):
     def st_outside_off(self, speech, language):
         self.say("Desligando as luzes da varanda.","Turning off outside lights")
         os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Outside__Turn_Lights_OFF.jar'")
-		self.complete_request()
+	self.complete_request()
