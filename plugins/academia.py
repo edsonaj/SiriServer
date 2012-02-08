@@ -15,5 +15,5 @@ class academiacontrol(Plugin):
     @register("pt-BR", "(.*desligar academia.*)")
     def st_gymoff(self, speech, language):
         self.say("Desligando as luzes da academia.","Turning off gym lights")
-        os.system( "java -jar '/home/ubuntu/SiriProxy/KNX/_GYM__OFF.jar'")
+        os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_GYM__OFF.jar'")
         self.complete_request()
