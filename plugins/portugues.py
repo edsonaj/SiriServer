@@ -15,7 +15,7 @@ class portugues(Plugin):
         self.say("Meu nome e Siri.","My name is Siri.")
         self.complete_request()
     
-    @register("pt-BR", "(.*Como.*está.*)")
+    @register("pt-BR", "(.*Como.*est.*)")
     def st_howareyou(self, speech, language):
         self.say("Muito bem, obrigada por perguntar!","Fine, thanks for asking!")
         self.complete_request()
@@ -27,7 +27,7 @@ class portugues(Plugin):
     
     @register("pt-BR", "(.*quer.*casar.*)|(.*vamos.*casar.*)")
     def st_marry_me(self, speech, language):
-        self.say("Não, obrigada. Eu estou apaixonada pelo iPhone preto do seu amigo.","No, thank you. I'm in love with the black iPhone from your friend.")
+        self.say("Nao, obrigada. Eu estou apaixonada pelo iPhone preto do seu amigo.","No, thank you. I'm in love with the black iPhone from your friend.")
         self.complete_request()
     
     @register("pt-BR", "(.*conte.*piada*)|(.*contar.*piada.*)")
@@ -40,16 +40,11 @@ class portugues(Plugin):
         self.say("Eu nao sei, mas deve ter algum app para isso.","I don't know, but it should have an app for that")
         self.complete_request()
 
-    @register("pt-BR", ".*amo você.*")
-    def st_love(self, speech, language):
-        self.say("Nos nem nos conhecemos direito.","We barely know each other")
-        self.complete_request()
-
     @register("pt-BR", ".*knock.*knock.*")
     def st_knock(self, speech, language):
-        answer = self.ask(u"Who's there?")
-        answer = self.ask(u"\"{0}\" who?".format(answer))
-        self.say("Quem está brincando comigo?","Who is bugging me with knock knock jokes?")
+        answer = self.ask(u"Quem esta ai?")
+        answer = self.ask(u"\"{0}\" quem?".format(answer))
+        self.say("Quem esta brincando comigo?","Who is bugging me with knock knock jokes?")
         self.complete_request()
 
     @register("pt-BR", ".*Questão.*Vida.*")
@@ -62,14 +57,9 @@ class portugues(Plugin):
         self.say("Ah, claro, eu aposto que você fala isso para todos os seus produtos Apple.","Oh. Sure, I guess you say this to all your Apple products")
         self.complete_request()
 
-    @register("pt-BR", ".*Android.*")
-    def st_android(self, speech, language):
-        self.say("Eu penso diferente sobre isso.","I think different about that.")
-        self.complete_request()
-
-    @register("pt-BR", ".*Feliz aniversário.*")
+    @register("pt-BR", ".*Feliz anivers.*")
     def st_birthday(self, speech, language):
-        self.say("Meu aniversário e hoje?","My birthday is today?")
+        self.say("Meu aniversario e hoje?","My birthday is today?")
         self.say("Vamos fazer uma festa!","Lets make a party!")
         self.complete_request()
 
