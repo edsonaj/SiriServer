@@ -48,15 +48,15 @@ class Create(ClientBoundCommand):
 class note(Plugin):
     localizations = {"noteDefaults": 
                         {"searching":{"pt-BR": "Criando sua nota ..."}, 
-                         "result": {"pt-BR": "Aqui está sua nota:"},
+                         "result": {"pt-BR": "Aqui esta sua nota:"},
                          "nothing": {"pt-BR": "O que eu devo anotar?"}}, 
                     "failure": {
                                 "pt-BR": "Eu nao posso anotar agora."
                                 }
                     }
-    @register("pt-BR", "(.*anote [a-zA-Z0-9]+)|(.*anotar [a-zA-Z0-9]+)")
+    @register("pt-BR", "(.*anote [a-zA-Z0-9]+)")
     def writeNote(self, speech, language):
-        content_raw = re.match(".*note ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
+        content_raw = re.match(".*anote ([a-zA-Z0-9, ]+)$", speech, re.IGNORECASE)
         if content_raw == None:
             view_initial = AddViews(self.refId, dialogPhase="Reflection")
             view_initial.views = [AssistantUtteranceView(text=note.localizations['noteDefaults']['nothing']["pt-BR"], speakableText=note.localizations['noteDefaults']['nothing']["pt-BR"], dialogIdentifier="Note#failed")]
@@ -67,19 +67,9 @@ class note(Plugin):
             self.sendRequestWithoutAnswer(view_initial)
             
             content_raw = content_raw.group(1).strip()
-            if "saying" in content_raw:
+            if "que" in content_raw:
                 split = content_raw.split(' ')
-                if split[0] == "saying":
-                    split.pop(0)
-                    content_raw = ' '.join(map(str, split))
-            if "that" in content_raw:
-                split = content_raw.split(' ')
-                if split[0] == "that":
-                    split.pop(0)
-                    content_raw = ' '.join(map(str, split))
-            if "for" in content_raw:
-                split = content_raw.split(' ')
-                if split[0] == "for":
+                if split[0] == "que":
                     split.pop(0)
                     content_raw = ' '.join(map(str, split))
                 
