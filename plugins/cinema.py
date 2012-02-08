@@ -39,19 +39,4 @@ class cinemacontrol(Plugin):
         self.say("A sala esta pronta. Tenha um bom filme.","The room is ready. Have a great film.")
         self.complete_request()
 
-    @register("pt-BR", "(.*filme.*acabou.*)")
-    def st_acabou_filme(self, speech, language):
-        resp = self.ask("Deseja abrir a persiana também?")
-        if resp == "Sim":
-            self.say("Ligando a iluminacao de chao e abrindo as persianas.","turning on the ground lights and opening the blind") 
-            os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Cinema__Open_Window.jar'")
-            os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Cinema__Turn_Light_OFF.jar'")
-            os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Cinema__Dimmer_100.jar'")
-        else if resp == "Não":
-            self.say("Ligando a iluminacao de chao.","turning on the ground lights") 
-            os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Cinema__Turn_Light_OFF.jar'")
-            os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_Cinema__Dimmer_100.jar'")
-        else: 
-        	self.say("Desculpe, nao entendi.","Sorry, I didn't get that.")
-    	self.say("Espero que tenha sido um bom filme.","I hope it was a great movie.")
-	self.complete_request()
+ 
