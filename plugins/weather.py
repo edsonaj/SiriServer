@@ -91,7 +91,7 @@ class weatherPlugin(Plugin):
         view = AddViews(refId=self.refId, dialogPhase="Reflection")
         print weatherPlugin.localizations
         randomNumber = random.randint(0,3)
-        view.views = [AssistantUtteranceView(weatherPlugin.localizations['weatherForecast']['search'][randomNumber]["pt-BR"], weatherPlugin.localizations['weatherForecast']['search'][randomNumber]["en-US"])]
+        view.views = [AssistantUtteranceView(weatherPlugin.localizations['weatherForecast']['search'][randomNumber]["pt-BR"], weatherPlugin.localizations['weatherForecast']['search'][randomNumber]["pt-BR"])]
         self.connection.send_object(view)
         
         
@@ -222,7 +222,7 @@ class weatherPlugin(Plugin):
                             weather = SiriForecastSnippet(aceWeathers=aceWethers)
                             speakCountry = stateLong if country == "United States" else country
                             randomNumber = random.randint(0,2)
-                            view.views = [AssistantUtteranceView(text=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber]["pt-BR"].format(city, speakCountry),speakableText=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber]["en-US"].format(city,speakCountry), dialogIdentifier="Weather#forecastCommentary"), weather]
+                            view.views = [AssistantUtteranceView(text=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber]["pt-BR"].format(city, speakCountry),speakableText=weatherPlugin.localizations['weatherForecast']['forecast'][viewType][randomNumber]["pt-BR"].format(city,speakCountry), dialogIdentifier="Weather#forecastCommentary"), weather]
                             self.sendRequestWithoutAnswer(view)
                         else:
                             error = True
