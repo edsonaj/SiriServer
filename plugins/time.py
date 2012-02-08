@@ -48,32 +48,32 @@ geonames_user="test2"
 class time(Plugin):
     
     localizations = {"currentTime": 
-                        {"search":{"de-DE": "Es wird gesucht ...", "en-US": "Procurando ..."}, 
-                         "currentTime": {"de-DE": "Es ist @{fn#currentTime}", "en-US": "Sao @{fn#currentTime}"}}, 
+                        {"search":{"de-DE": "Es wird gesucht ...", "pt-BR": "Procurando ..."}, 
+                         "currentTime": {"de-DE": "Es ist @{fn#currentTime}", "pt-BR": "Sao @{fn#currentTime}"}}, 
                      "currentTimeIn": 
-                        {"search":{"de-DE": "Es wird gesucht ...", "en-US": "Procurando ..."}, 
+                        {"search":{"de-DE": "Es wird gesucht ...", "pt-BR": "Procurando ..."}, 
                          "currentTimeIn": 
                                 {
-                                "tts": {"de-DE": u"Die Uhrzeit in {0},{1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "The time in {0}, {1} is @{{fn#currentTimeIn#{2}}}:"},
-                                "text": {"de-DE": u"Die Uhrzeit in {0}, {1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "As horas em {0}, {1} sao @{{fn#currentTimeIn#{2}}}:"}
+                                "tts": {"de-DE": u"Die Uhrzeit in {0},{1} ist @{{fn#currentTimeIn#{2}}}:", "en-US": "As horas em {0}, {1} sao @{{fn#currentTimeIn#{2}}}:"},
+                                "text": {"de-DE": u"Die Uhrzeit in {0}, {1} ist @{{fn#currentTimeIn#{2}}}:", "pt-BR": "As horas em {0}, {1} sao @{{fn#currentTimeIn#{2}}}:"}
                                 }
                         },
                     "failure": {
-                                "de-DE": "Ich kann dir die Uhr gerade nicht anzeigen!", "en-US": "I cannot show you the clock right now"
+                                "de-DE": "Ich kann dir die Uhr gerade nicht anzeigen!", "pt-BR": "Eu nao posso te mostrar o relogio agora."
                                 }
                     }
 
     @register("de-DE", "(Wie ?viel Uhr.*)|(.*Uhrzeit.*)")     
-    @register("en-US", "(Que horas sao*)|(.*Horas.*)|(.*Hora.*)")
+    @register("pt-BR", "(.*Que horas sao.*)|(.*Horas.*)|(.*Hora.*)")
     def currentTime(self, speech, language):
         #first tell that we look it up
         view = AddViews(self.refId, dialogPhase="Reflection")
-        view.views = [AssistantUtteranceView(text=time.localizations['currentTime']['search'][language], speakableText=time.localizations['currentTime']['search'][language], dialogIdentifier="Clock#getTime")]
+        view.views = [AssistantUtteranceView(text=time.localizations['currentTime']['search']["pt-BR"], speakableText=time.localizations['currentTime']['search']["pt-BR"], dialogIdentifier="Clock#getTime")]
         self.sendRequestWithoutAnswer(view)
         
         # tell him to show the current time
         view = AddViews(self.refId, dialogPhase="Summary")
-        view1 = AssistantUtteranceView(text=time.localizations['currentTime']['currentTime'][language], speakableText=time.localizations['currentTime']['currentTime'][language], dialogIdentifier="Clock#showTimeInCurrentLocation")
+        view1 = AssistantUtteranceView(text=time.localizations['currentTime']['currentTime']["pt-BR"], speakableText=time.localizations['currentTime']['currentTime']["pt-BR"], dialogIdentifier="Clock#showTimeInCurrentLocation")
         clock = ClockObject()
         clock.timezoneId = self.connection.assistant.timeZoneId
         view2 = ClockSnippet(clocks=[clock])
@@ -82,10 +82,10 @@ class time(Plugin):
         self.complete_request()
     
     @register("de-DE", "(Wieviel Uhr.*in ([\w ]+))|(Uhrzeit.*in ([\w ]+))")
-    @register("en-US", "(Que horas sao.*em ([\w ]+))|(.*Horas.*em ([\w ]+))")
+    @register("pt-BR", "(.*Que horas sao.*em ([\w ]+))|(.*Horas.*em ([\w ]+))")
     def currentTimeIn(self, speech, language):
         view = AddViews(self.refId, dialogPhase="Reflection")
-        view.views = [AssistantUtteranceView(text=time.localizations['currentTimeIn']['search'][language], speakableText=time.localizations['currentTimeIn']['search'][language], dialogIdentifier="Clock#getTime")]
+        view.views = [AssistantUtteranceView(text=time.localizations['currentTimeIn']['search']["pt-BR"], speakableText=time.localizations['currentTimeIn']['search']["pt-BR"], dialogIdentifier="Clock#getTime")]
         self.sendRequestWithoutAnswer(view)
         
         error = False
@@ -110,7 +110,7 @@ class time(Plugin):
                     if "country" in types:
                         # OK we have a country as input, that sucks, we need the capital, lets try again and ask for capital also
                         components = filter(lambda x: True if "country" in x['types'] else False, components)
-                        url = "http://maps.googleapis.com/maps/api/geocode/json?address=capital%20{0}&sensor=false&language={1}".format(urllib.quote_plus(components[0]['long_name']), language)
+                        url = "http://maps.googleapis.com/maps/api/geocode/json?address=capital%20{0}&sensor=false&language={1}".format(urllib.quote_plus(components[0]['long_name']), "en-US")
                             # lets wait max 3 seconds
                         jsonString = None
                         try:
@@ -140,7 +140,7 @@ class time(Plugin):
                             countryCode = filter(lambda x: True if "country" in x['types'] else False, components)[0]['short_name']
                             
                             view = AddViews(self.refId, dialogPhase="Summary")
-                            view1 = AssistantUtteranceView(text=time.localizations['currentTimeIn']['currentTimeIn']['text'][language].format(city, country, timeZone), speakableText=time.localizations['currentTimeIn']['currentTimeIn']['tts'][language].format(city, country, timeZone), dialogIdentifier="Clock#showTimeInOtherLocation")
+                            view1 = AssistantUtteranceView(text=time.localizations['currentTimeIn']['currentTimeIn']['text']["pt-BR"].format(city, country, timeZone), speakableText=time.localizations['currentTimeIn']['currentTimeIn']['tts']["pt-BR"].format(city, country, timeZone), dialogIdentifier="Clock#showTimeInOtherLocation")
                             clock = ClockObject()
                             clock.timezoneId = timeZone
                             clock.countryCode = countryCode
@@ -163,7 +163,7 @@ class time(Plugin):
             error = True
         if error:
             view = AddViews(self.refId, dialogPhase="Completion")
-            view.views = [AssistantUtteranceView(text=time.localizations['failure'][language], speakableText=time.localizations['failure'][language], dialogIdentifier="Clock#cannotShowClocks")]
+            view.views = [AssistantUtteranceView(text=time.localizations['failure']["pt-BR"], speakableText=time.localizations['failure']["pt-BR"], dialogIdentifier="Clock#cannotShowClocks")]
             self.sendRequestWithoutAnswer(view)
         self.complete_request()
 
