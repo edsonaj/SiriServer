@@ -7,6 +7,7 @@ class portugues(Plugin):
     
     @register("pt-BR", "(.*Oi.*)|(.*Oi Siri.*)")
     def st_hello(self, speech, language):
+    	self.say("{0}","")
         self.say("Ola","Hello")
         self.complete_request()
 
