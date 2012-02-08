@@ -12,7 +12,7 @@ class salacontrol(Plugin):
         if resposta == "Direta":
             self.say("Ligando as luzes da sala.","Turning on living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_1.jar'")
-        if resposta == "Indireta":
+        else if resposta == "Indireta":
             self.say("Ligando as luzes da sala.","Turning on living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_2.jar'")
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_3.jar'")
@@ -26,7 +26,7 @@ class salacontrol(Plugin):
         if resposta == "Direta":
             self.say("Desligando as luzes da sala.","Turning off living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_OFF_1.jar'")
-        if resposta == "Indireta":
+        else if resposta == "Indireta":
             self.say("Desligando as luzes da sala.","Turning off living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_OFF_2.jar'")
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_OFF_3.jar'")
