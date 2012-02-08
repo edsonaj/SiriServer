@@ -9,12 +9,10 @@ class salacontrol(Plugin):
     @register("pt-BR", ".*ligar.*sala.*")
     def st_room_on(self, speech, language):
         resposta = self.ask(u"Direta ou Indireta?")
-        if resposta == "direta":
-            self.say("Direta",null)
+        if resposta == "Direta":
             self.say("Ligando as luzes da sala.","Turning on living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_1.jar'")
-        if resposta == "indireta":
-            self.say("Indireta",null)
+        if resposta == "Indireta":
             self.say("Ligando as luzes da sala.","Turning on living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_2.jar'")
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_ON_3.jar'")
@@ -25,12 +23,10 @@ class salacontrol(Plugin):
     @register("pt-BR", ".*desligar.*sala.*")
     def st_room_off(self, speech, language):
         resposta = self.ask(u"Direta ou Indireta?")
-        if resposta == "direta":
-            self.say("Direta",null)
+        if resposta == "Direta":
             self.say("Desligando as luzes da sala.","Turning off living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_OFF_1.jar'")
-        if resposta == "indireta":
-            self.say("Indireta",null)
+        if resposta == "Indireta":
             self.say("Desligando as luzes da sala.","Turning off living room lights") 
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_OFF_2.jar'")
             os.system("java -jar '/home/ubuntu/SiriProxy/KNX/_LivingRoom__Turn_Light_OFF_3.jar'")
